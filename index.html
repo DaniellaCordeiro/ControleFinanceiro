@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Controle Financeiro</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+
+        <div class="header-top">
+            <div>
+                <h1>💰 Controle Financeiro</h1>
+                <p>Planeje seus recebimentos e saiba quanto guardar.</p>
+            </div>
+
+            <div class="mes-atual">
+                <span>Mês atual</span>
+                <strong id="mesAtual"></strong>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <!-- SALDO INICIAL -->
+
+    <section class="painel saldo-inicial">
+
+        <div>
+            <span>Saldo inicial do mês</span>
+            <strong id="saldoInicial">R$ 0,00</strong>
+        </div>
+
+        <div>
+            <label>Alterar saldo inicial</label>
+
+            <input
+                type="number"
+                id="inputSaldoInicial"
+                step="0.01"
+                placeholder="0,00"
+            >
+
+            <button id="salvarSaldoInicial">
+                Salvar saldo inicial
+            </button>
+        </div>
+
+    </section>
+
+
+    <!-- RESUMO -->
+
+    <section class="resumo">
+
+        <div class="card azul">
+            <span>Saldo previsto</span>
+            <strong id="saldo">R$ 0,00</strong>
+        </div>
+
+        <div class="card verde">
+            <span>Total de receitas</span>
+            <strong id="totalReceitas">R$ 0,00</strong>
+        </div>
+
+        <div class="card vermelho">
+            <span>Total de despesas</span>
+            <strong id="totalDespesas">R$ 0,00</strong>
+        </div>
+
+        <div class="card amarelo">
+            <span>Precisa reservar</span>
+            <strong id="totalReserva">R$ 0,00</strong>
+        </div>
+
+    </section>
+
+
+    <!-- ALERTA -->
+
+    <section id="alertaReserva" class="alerta"></section>
+
+
+    <!-- ADICIONAR LANÇAMENTO -->
+
+    <section class="painel">
+
+        <h2>➕ Adicionar movimentação</h2>
+
+        <form id="formLancamento">
+
+            <div class="form-grid">
+
+                <div>
+                    <label>Tipo</label>
+
+                    <select id="tipo" required>
+
+                        <option value="receita">
+                            Receita
+                        </option>
+
+                        <option value="despesa">
+                            Despesa
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Descrição</label>
+
+                    <input
+                        type="text"
+                        id="descricao"
+                        placeholder="Ex: Salário, aluguel..."
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label>Data</label>
+
+                    <input
+                        type="date"
+                        id="data"
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label>Valor</label>
+
+                    <input
+                        type="number"
+                        id="valor"
+                        step="0.01"
+                        min="0"
+                        placeholder="0,00"
+                        required
+                    >
+                </div>
+
+            </div>
+
+
+            <button class="btn-principal" type="submit">
+                + Adicionar movimentação
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- PLANEJAMENTO -->
+
+    <section class="painel">
+
+        <h2>🎯 Quanto devo guardar?</h2>
+
+        <div id="planejamento"></div>
+
+    </section>
+
+
+    <!-- LANÇAMENTOS -->
+
+    <section class="painel">
+
+        <div class="titulo-lista">
+
+            <h2>📋 Movimentações do mês</h2>
+
+            <button
+                class="btn-perigo"
+                id="limparTudo"
+            >
+                Limpar mês
+            </button>
+
+        </div>
+
+
+        <div id="listaLancamentos"></div>
+
+    </section>
+
+
+    <!-- FECHAMENTO DO MÊS -->
+
+    <section class="painel fechamento">
+
+        <h2>💾 Fechar mês</h2>
+
+        <p>
+            Quando terminar o mês, informe quanto realmente
+            sobrou na sua conta. Esse valor será levado para
+            o próximo mês.
+        </p>
+
+
+        <div class="fechamento-grid">
+
+            <div>
+                <span>Saldo previsto</span>
+                <strong id="fechamentoPrevisto">
+                    R$ 0,00
+                </strong>
+            </div>
+
+
+            <div>
+                <label>Saldo real</label>
+
+                <input
+                    type="number"
+                    id="saldoReal"
+                    step="0.01"
+                    placeholder="Quanto realmente sobrou?"
+                >
+            </div>
+
+
+            <div>
+                <span>Diferença</span>
+                <strong id="diferenca">
+                    R$ 0,00
+                </strong>
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn-fechar"
+            id="fecharMes"
+        >
+            💾 Fechar e salvar mês
+        </button>
+
+    </section>
+
+
+    <!-- HISTÓRICO -->
+
+    <section class="painel">
+
+        <h2>📚 Histórico dos meses</h2>
+
+        <div id="historico"></div>
+
+    </section>
+
+</main>
+
+
+<!-- MODAL HISTÓRICO -->
+
+<div
+    id="modalHistorico"
+    class="modal escondido"
+>
+
+    <div class="modal-conteudo">
+
+        <button
+            class="fechar-modal"
+            id="fecharModal"
+        >
+            ×
+        </button>
+
+        <h2 id="tituloHistorico"></h2>
+
+        <div id="detalhesHistorico"></div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
